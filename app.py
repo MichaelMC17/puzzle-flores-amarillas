@@ -17,7 +17,7 @@ def home():
             "id": 2,
             "titulo": "Carnaval X2",
             "img": "/static/img/amigo5.jpg",
-            "mensaje": "¡Qué buenos recuerdos!",
+            "mensaje": "¡Los zapatos de Melvin bien perdidos en el taxi!",
             "dificultad": 3  # Matriz 3x3 (9 piezas)
         },
         {
@@ -58,7 +58,7 @@ def home():
         },
         {
             "id": 8,
-            "titulo": "Parrilada",
+            "titulo": "Parrillada",
             "img": "/static/img/amigo8.jpg",
             "mensaje": "¡Terminamos bebiendo como siempre JAJA!",
             "dificultad": 3
@@ -74,7 +74,7 @@ def home():
             "id": 10,
             "titulo": "Quinceañera Check X2",
             "img": "/static/img/amigo10.jpg",
-            "mensaje": "¡Lindos y gorditos muchachos!",
+            "mensaje": "¡Que elegancia la de Francia!",
             "dificultad": 3
         }
     ]
