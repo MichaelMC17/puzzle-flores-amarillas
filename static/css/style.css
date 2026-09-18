@@ -18,25 +18,25 @@ body {
   position: relative;
 }
 
-/* Capa de flores y pétalos flotantes */
+/* Capa de flores y pétalos flotantes visible en móviles */
 .petals-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Permite hacer clic y tocar a través de las flores */
+  z-index: 999;          /* Por encima del contenedor blanco en celulares */
   overflow: hidden;
 }
 
 .petal {
   position: absolute;
-  top: -10%;
+  top: -40px;
   user-select: none;
   pointer-events: none;
+  will-change: transform, opacity;
   animation: fallDown linear infinite;
-  opacity: 0.8;
 }
 
 @keyframes fallDown {
@@ -44,14 +44,14 @@ body {
     transform: translateY(0) rotate(0deg) translateX(0);
     opacity: 0;
   }
-  15% {
-    opacity: 0.85;
+  10% {
+    opacity: 0.9;
   }
   85% {
-    opacity: 0.85;
+    opacity: 0.9;
   }
   100% {
-    transform: translateY(110vh) rotate(360deg) translateX(35px);
+    transform: translateY(105vh) rotate(360deg) translateX(30px);
     opacity: 0;
   }
 }
