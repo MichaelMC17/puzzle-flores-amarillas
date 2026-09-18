@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Flores Amarillas 🌻 - Recuerdos de Amigos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Confetti canvas para la animación al ganar -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Capa de pétalos y flores flotando -->
+  <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
+
+  <div class="mobile-container">
+    <!-- PANTALLA 0: CARGA INTERACTIVA (TOCA LA FLOR) -->
+    <section id="welcome-screen" class="screen active">
+      <div class="welcome-card">
+        <h2 class="welcome-title">Amigos</h2>
+        <p id="tapPrompt" class="tap-subtitle">Toca la flor</p>
+
+        <!-- Flor interactiva -->
+        <div id="tapFlowerBtn" class="tap-flower-wrapper">
+          <span class="interactive-flower">🌻</span>
+        </div>
+
+        <!-- Barra de progreso con porcentaje -->
+        <div class="loader-progress-track">
+          <div id="loaderFill" class="loader-progress-fill"></div>
+        </div>
+        <span id="loaderPercentText" class="loader-percent-label">0%</span>
+      </div>
+    </section>
+
+    <!-- PANTALLA 1: CARRUSEL HORIZONTAL DE NIVELES -->
+    <section id="level-selection-screen" class="screen">
+      <header class="main-header">
+        <span class="badge">🌻 21 DE SEPTIEMBRE • FLORES AMARILLAS 🌻</span>
+        <h1>Para Mis Amigos Favoritos</h1>
+        <p>Un detalle especial en este día. ¡Arma cada recuerdo para florecer el siguiente! 💛</p>
+      </header>
+
+      <!-- Contenedor deslizable horizontal -->
+      <div class="carousel-wrapper">
+        <div class="levels-carousel" id="levelsCarousel">
+          {% for lvl in niveles %}
+          <div class="level-card-slide {% if loop.index > 1 %}locked{% endif %}" 
+               data-id="{{ lvl.id }}" 
+               data-img="{{ lvl.img }}" 
+               data-grid="{{ lvl.dificultad }}" 
+               data-msg="{{ lvl.mensaje }}" 
+               data-title="{{ lvl.titulo }}">
+            
+            <div class="slide-image-box">
+              <img src="{{ lvl.img }}" alt="{{ lvl.titulo }}">
+              {% if loop.index > 1 %}
+              <div class="lock-overlay">
+                <span class="lock-icon">🔒</span>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="slide-footer">
+              <span class="level-tag">FLOR {{ lvl.id }} 🌻</span>
+              <h3>{{ lvl.titulo }}</h3>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="swipe-hint">👈 Desliza hacia los lados 👉</div>
+    </section>
+
+    <!-- PANTALLA 2: TABLERO DE PUZZLE -->
+    <section id="game-screen" class="screen">
+      <div class="game-top-bar">
+        <button id="btnBackToLevels" class="btn-icon">← Volver</button>
+        <span id="levelTitleBadge" class="level-indicator">Nivel 1</span>
+        <button id="btnToggleGhost" class="btn-ghost-toggle" title="Alternar sombra de guía">👁️</button>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">0 / 9 piezas</div>
+
+      <div class="board-container">
+        <div class="board-wrapper">
+          <img id="boardGhostGuide" class="board-ghost-guide" src="" alt="Guía">
+          <div id="puzzleBoard" class="puzzle-board"></div>
+        </div>
+      </div>
+
+      <div class="dock-container">
+        <span class="dock-label">🌻 ENCAJA ESTE PÉTALO EN SU LUGAR</span>
+        <div class="piece-stage">
+          <div id="currentPieceSlot" class="floating-piece-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL DE ÉXITO -->
+    <div id="winModal" class="modal-overlay">
+      <div class="modal-card">
+        <div class="flower-header-icon">🌻✨</div>
+        <div class="modal-img-container">
+          <img id="completedPhoto" src="" alt="Recuerdo Completado">
+        </div>
+        <h2>¡Floreció el Recuerdo! 💛</h2>
+        <p id="winMessageText">¡Un recuerdo más completado!</p>
+        <button id="btnNextLevel" class="btn-primary">CONTINUAR 🌼</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
